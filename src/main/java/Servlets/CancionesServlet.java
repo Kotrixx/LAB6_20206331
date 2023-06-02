@@ -14,6 +14,9 @@ public class CancionesServlet extends HttpServlet {
         CancionDao cancionDao = new CancionDao();
 
         request.setAttribute("listaCanciones",cancionDao.obtenerCanciones());
+
+        String idBanda = request.getParameter("id");
+        request.setAttribute("listaCancionesXbanda ",cancionDao.obtenerCancionesXbanda(idBanda));
         RequestDispatcher view =request.getRequestDispatcher("listaCanciones.jsp");
         view.forward(request,response);
 

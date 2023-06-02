@@ -10,33 +10,63 @@ import java.util.ArrayList;
 
 public class CancionDao {
     private static String user = "root";
-    private static String pass = "123456";
+    private static String pass = "root";
     private static String url = "jdbc:mysql://localhost:3306/lab6sw1?serverTimezone=America/Lima";
+    public ArrayList<Cancion> obtenerCanciones(){
+        ArrayList<Cancion> listaCancionesRecomendadas = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Tour> listaTours = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, user, pass);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM cancion;")) {
+            while (rs.next()) {
+                Cancion cancion = new Cancion(rs.getInt(1),rs.getString(2),rs.getString(3));
+                listaCancionesRecomendadas.add(cancion);
+            }
 
-
-public ArrayList<Cancion> obtenerCanciones(){
-    ArrayList<Cancion> listaCancionesRecomendadas = new ArrayList<>();
-    try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("No se pudo realizar la busqueda de canciones");
+        }
+        return listaCancionesRecomendadas;
     }
-    ArrayList<Tour> listaTours = new ArrayList<>();
-    try (Connection conn = DriverManager.getConnection(url, user, pass);
-         Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery("SELECT * FROM cancion;")) {
-        while (rs.next()) {
-            Cancion cancion = new Cancion(rs.getInt(1),rs.getString(2),rs.getString(3));
-            listaCancionesRecomendadas.add(cancion);
+
+    public ArrayList<Cancion> obtenerCancionesXbanda(String idBanda){
+        ArrayList<Cancion> listaCancionXbanda = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
-    } catch (SQLException e) {
-        e.printStackTrace();
-        System.out.println("No se pudo realizar la busqueda de canciones");
-    }
-    return listaCancionesRecomendadas;
-}
+        String sql = "select * from cancion\n" +
+                "where banda = ?";
+        try (Connection connection = DriverManager.getConnection(url, user, pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+             pstmt.setString(1,idBanda);
+            //pstmt.setString(1, job.getJobId());
+            //pstmt.setString(2, job.getJobTitle());
+            //pstmt.setInt(3, job.getMinSalary());
+            //pstmt.setInt(4, job.getMaxSalary());
+            //pstmt.executeUpdate();
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Cancion cancion = new Cancion(rs.getInt(1),rs.getString(2),rs.getString(3));
+                    listaCancionXbanda.add(cancion);
+                }
+            }
 
+        } catch (SQLException e) {
+            System.out.println("No se pudo realizar la busqueda de canciones");
+            throw new RuntimeException(e);
+        }
+        return listaCancionXbanda;
+    }
 
 
 
