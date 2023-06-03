@@ -32,7 +32,20 @@ public class CancionesServlet extends HttpServlet {
             RequestDispatcher view =request.getRequestDispatcher("listaCanciones.jsp");
             view.forward(request,response);
         }
-
+        String action = request.getParameter("act");
+        switch (action){
+            case "fav":
+                request.setAttribute("listaPlaylist", cancionDao.obtenerCanciones());
+                RequestDispatcher view =request.getRequestDispatcher("listaPlaylist.jsp");
+                view.forward(request,response);
+                break;
+            case "borrarFav":
+                String idCancion= request.getParameter("idCancion");
+                request.setAttribute("listaPlaylist", cancionDao.quitarFavoritos(idCancion));
+                //RequestDispatcher view =request.getRequestDispatcher("listaPlaylist.jsp");
+                //view.forward(request,response);
+                break;
+        }
     }
 
     @Override

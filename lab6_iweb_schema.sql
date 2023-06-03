@@ -251,6 +251,36 @@ CREATE TABLE `tours_por_ciudad` (
 --
 -- Dumping data for table `tours_por_ciudad`
 --
+CREATE TABLE IF NOT EXISTS `lab6sw1`.`listaReproduccion` (
+  `idlistaReproduccion` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`idlistaReproduccion`))
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `lab6sw1`.`cancion_has_listaReproduccion` (
+  `cancion_idcancion` INT NOT NULL,
+  `listaReproduccion_idlistaReproduccion` INT NOT NULL,
+  PRIMARY KEY (`cancion_idcancion`, `listaReproduccion_idlistaReproduccion`),
+  INDEX `fk_cancion_has_listaReproduccion_listaReproduccion1_idx` (`listaReproduccion_idlistaReproduccion` ASC) VISIBLE,
+  INDEX `fk_cancion_has_listaReproduccion_cancion1_idx` (`cancion_idcancion` ASC) VISIBLE,
+  CONSTRAINT `fk_cancion_has_listaReproduccion_cancion1`
+    FOREIGN KEY (`cancion_idcancion`)
+    REFERENCES `lab6sw1`.`cancion` (`idcancion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cancion_has_listaReproduccion_listaReproduccion1`
+    FOREIGN KEY (`listaReproduccion_idlistaReproduccion`)
+    REFERENCES `lab6sw1`.`listaReproduccion` (`idlistaReproduccion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+
+
 
 LOCK TABLES `tours_por_ciudad` WRITE;
 /*!40000 ALTER TABLE `tours_por_ciudad` DISABLE KEYS */;

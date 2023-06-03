@@ -17,7 +17,7 @@
   <div class="pb-5 pt-4 px-3 titlecolor">
     <div class="col-lg-6">
       <h1 class='text-light'>Lista de Canciones por banda </h1>
-      <a class="btn btn-warning" href="… ">Mostrar todas las canciones</a>
+      <a class="btn btn-warning" href="<%=request.getContextPath()%>/listaCanciones">Mostrar todas las canciones</a>
     </div>
   </div>
   <div class="tabla">

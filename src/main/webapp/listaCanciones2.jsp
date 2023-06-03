@@ -24,6 +24,7 @@
       <th>ID</th>
       <th>Cancion</th>
       <th>Banda</th>
+      <th></th>
       </thead>
       <%
         for (Cancion cancion : listaCanciones) {
@@ -34,6 +35,13 @@
         <td><%=cancion.getNombre_cancion()%>
         </td>
         <td><%=cancion.getBanda()%>
+        </td>
+        <td>
+          <%if(cancion.getFavorito() == 1){%>
+          <a class="btn btn-danger" href=""><p>&hearts;</p></a>
+          <%}else{%>
+          <a type="button" class="btn btn-outline-danger"><p>&hearts;</p></a>
+          <%}%>
         </td>
 
       </tr>
