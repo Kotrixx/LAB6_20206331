@@ -116,7 +116,31 @@ public class CancionDao {
             throw new RuntimeException(e);
         }
     }
+    public void quitarFavoritos(String idBanda){
+        ArrayList<Cancion> listaCancionXbanda = new ArrayList<>();
+        int favorito = 1;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
+        String sql = "UPDATE cancion SET favorito = ? WHERE idCancion = ?";
+        try (Connection connection = DriverManager.getConnection(url, user, pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1,favorito);
+            pstmt.setString(2,idBanda);
+            //pstmt.setString(1, job.getJobId());
+            //pstmt.setString(2, job.getJobTitle());
+            //pstmt.setInt(3, job.getMinSalary());
+            //pstmt.setInt(4, job.getMaxSalary());
+            //pstmt.executeUpdate();
+            pstmt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("No se pudo realizar la busqueda de canciones");
+            throw new RuntimeException(e);
+        }
+    }
 
     public ArrayList<Cancion> obtenerCancionesRecomendadas(){
         ArrayList<Cancion> listaCancionesRecomendadas = new ArrayList<>();

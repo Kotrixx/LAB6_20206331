@@ -41,7 +41,7 @@ public class CancionesServlet extends HttpServlet {
                 break;
             case "borrarFav":
                 String idCancion= request.getParameter("idCancion");
-                request.setAttribute("listaPlaylist", cancionDao.quitarFavoritos(idCancion));
+                //request.setAttribute("listaPlaylist", cancionDao.quitarFavoritos(idCancion));
                 //RequestDispatcher view =request.getRequestDispatcher("listaPlaylist.jsp");
                 //view.forward(request,response);
                 break;
