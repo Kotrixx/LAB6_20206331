@@ -2,7 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Beans.Cancion" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean type="java.util.ArrayList<Beans.Cancion>" scope="request" id="listaCanciones"/>
+
 <jsp:useBean type="java.util.ArrayList<Beans.Cancion>" scope="request" id="listaCancionesXbanda"/>
 
 <html>
@@ -12,15 +12,12 @@
 <body>
 <div class='container'>
   <jsp:include page="/includes/navbar.jsp">
-    <jsp:param name="page" value="tours"/>
+    <jsp:param name="page" value="canciones"/>
   </jsp:include>
   <div class="pb-5 pt-4 px-3 titlecolor">
     <div class="col-lg-6">
-      <%if(listaCancionesXbanda != null){%>
-      <h1 class='text-light'>Lista de Canciones por banda</h1>
-      <%}else{%>
-      <h1 class='text-light'>Lista de Canciones</h1>
-      <%}%>
+      <h1 class='text-light'>Lista de Canciones por banda </h1>
+      <a class="btn btn-warning" href="… ">Mostrar todas las canciones</a>
     </div>
   </div>
   <div class="tabla">
@@ -29,10 +26,9 @@
       <th>ID</th>
       <th>Cancion</th>
       <th>Banda</th>
-      <th>Ver</th>
       </thead>
       <%
-        for (Cancion cancion : listaCanciones) {
+        for (Cancion cancion : listaCancionesXbanda) {
       %>
       <tr>
         <td><%=cancion.getIdCancion()%>
@@ -40,9 +36,6 @@
         <td><%=cancion.getNombre_cancion()%>
         </td>
         <td><%=cancion.getBanda()%>
-        </td>
-        <td>
-          <a class="nav-link" >Mas de la banda</a>
         </td>
 
       </tr>

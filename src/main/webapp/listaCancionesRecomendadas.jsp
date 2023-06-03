@@ -36,7 +36,7 @@
         <td><%=cancion.getBanda()%>
         </td>
         <td>
-          <a class="nav-link ">Mas de la banda</a>
+          <a class="btn btn-success" href="<%=request.getContextPath()%>/listaCanciones?idbanda=<%=cancion.getBanda()%>">Mas de la banda</a>
         </td>
 
       </tr>

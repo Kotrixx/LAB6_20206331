@@ -13,13 +13,25 @@ public class CancionesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CancionDao cancionDao = new CancionDao();
 
-        request.setAttribute("listaCanciones",cancionDao.obtenerCanciones());
+        //request.setAttribute("listaCanciones",cancionDao.obtenerCanciones());
 
-        String idBanda = request.getParameter("id");
-        request.setAttribute("listaCancionesXbanda ",cancionDao.obtenerCancionesXbanda(idBanda));
+        //String idBanda = request.getParameter("idbanda");
+        /*String idBanda = request.getParameter("idbanda") == null ? "listaCanciones" : request.getParameter("idbanda");
+        request.setAttribute("listaCancionesXbanda",cancionDao.obtenerCancionesXbanda(idBanda));
         RequestDispatcher view =request.getRequestDispatcher("listaCanciones.jsp");
         view.forward(request,response);
-
+        */
+        String idBanda = request.getParameter("idbanda");
+        if(idBanda==null){
+            request.setAttribute("listaCanciones", cancionDao.obtenerCanciones());
+            RequestDispatcher view =request.getRequestDispatcher("listaCanciones2.jsp");
+            view.forward(request,response);
+        }
+        else{
+            request.setAttribute("listaCancionesXbanda", cancionDao.obtenerCancionesXbanda(idBanda));
+            RequestDispatcher view =request.getRequestDispatcher("listaCanciones.jsp");
+            view.forward(request,response);
+        }
 
     }
 
